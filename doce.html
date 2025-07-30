@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vitor Soare Lobato - Desenvolvedor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  /* Reset básico */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #121212;
+    color: #dddcdc;
+    min-height: 100vh;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+
+  /* Container principal */
+  main {
+    max-width: 900px;
+    margin: 100px auto 60px;
+    padding: 0 1.5rem;
+  }
+
+  /* Cabeçalho fixo */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #1f1f1fcc;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px #0009;
+    z-index: 999;
+  }
+  nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Logo com degradê dourado + efeito digitação */
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #b7986d, #ffd670);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    user-select: none;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #ffd670;
+    animation: typing 3s steps(20) 1 forwards;
+
+  }
+  @keyframes typing {
+    0% { width: 0; border-color: #ffd670; }
+    50% { border-color: transparent; }
+    100% { width: 13.5ch; border-color: #ffd670; }
+  }
+
+  /* Menu */
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+  nav ul li a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #cfcfcfdd;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  nav ul li a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2.5px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, #b7986d, #ffd670);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: #ffd670;
+  }
+  nav ul li a:hover::after,
+  nav ul li a.active::after {
+    width: 100%;
+  }
+
+  /* Menu hamburguer */
+  .menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .menu-btn span {
+    width: 28px;
+    height: 3px;
+    background: #ffd670;
+    border-radius: 3px;
+    transition: all 0.4s ease;
+  }
+  @media (max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 60px;
+      right: -100%;
+      width: 240px;
+      height: calc(100vh - 60px);
+      background: #1f1f1fdd;
+      backdrop-filter: blur(15px);
+      box-shadow: -4px 0 20px #b7986daa;
+      flex-direction: column;
+      padding-top: 3rem;
+      gap: 1.8rem;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      transition: right 0.35s ease;
+      z-index: 999;
+    }
+    nav ul.active {
+      right: 0;
+    }
+    nav ul li a {
+      font-size: 1.15rem;
+      padding: 0.8rem 1.2rem;
+      color: #ffd670cc;
+    }
+    .menu-btn {
+      display: flex;
+    }
+  }
+  .menu-btn.open span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+  .menu-btn.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-btn.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  /* Seções */
+  section {
+    margin-bottom: 4rem;
+    padding: 2rem 2.2rem;
+    background: #1e1e1e;
+    border-radius: 18px;
+    box-shadow:
+      3px 3px 10px #000a,
+      inset 0 0 25px #b7986d44;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeUp 0.6s forwards;
+  }
+  section:nth-child(1) { animation-delay: 0.15s; }
+  section:nth-child(2) { animation-delay: 0.35s; }
+  section:nth-child(3) { animation-delay: 0.55s; }
+  section:nth-child(4) { animation-delay: 0.75s; }
+  section:nth-child(5) { animation-delay: 0.95s; }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  section h2 {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(60deg, #b7986d, #ffd670);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1.5px;
+  }
+  section p, section ul li {
+    font-size: 1.1rem;
+    color: #ccc;
+  }
+  section ul {
+    margin-top: 1rem;
+    list-style: none;
+    padding-left: 1.5rem;
+  }
+  section ul li {
+    margin-bottom: 0.7rem;
+    position: relative;
+    padding-left: 1.3rem;
+  }
+  section ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #b7986d;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  /* Botões sociais com estilo dourado e minimalista */
+  .social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    margin-top: 2rem;
+  }
+  .social-buttons a {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b7986d;
+    border: 2.5px solid transparent;
+    background: linear-gradient(145deg, #1f1f1f, #292929);
+    box-shadow:
+      inset 0 0 8px #b7986d44;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .social-buttons a:hover {
+    background: linear-gradient(145deg, #b7986d, #ffd670);
+    color: #1e1e1e;
+    box-shadow:
+      0 0 15px #ffd670,
+      inset 0 0 18px #b7986dcc;
+    transform: scale(1.15);
+    border-color: #ffd670;
+  }
+  .social-buttons a::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -30px;
+    font-size: 0.85rem;
+    color: #ffd670cc;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .social-buttons a:hover::after {
+    opacity: 1;
+  }
+
+  /* Projetos com hover elegante */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2rem;
+  }
+  .project-card {
+    background: linear-gradient(145deg, #1f1f1f, #292929);
+    border-radius: 20px;
+    box-shadow:
+      2px 2px 10px #0008,
+      inset 0 0 12px #b7986d33;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow:
+      6px 6px 18px #b7986d88,
+      inset 0 0 20px #ffd67088;
+  }
+  .project-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 3px solid #b7986d99;
+    transition: transform 0.3s ease;
+  }
+  .project-card:hover img {
+    transform: scale(1.08);
+  }
+  .project-info {
+    padding: 1rem 1.3rem 1.8rem;
+    flex-grow: 1;
+  }
+  .project-info h3 {
+    color: #b7986d;
+    font-size: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .project-info p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 1.1rem;
+  }
+  .btn-project {
+    display: inline-block;
+    background: transparent;
+    color: #b7986d;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid #b7986d;
+    padding: 0.4rem 1rem;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  .btn-project:hover {
+    background: #ffd670;
+    color: #1e1e1e;
+    box-shadow: 0 0 15px #ffd670aa;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1.8rem 1rem;
+    font-size: 1rem;
+    color: #b7986daa;
+    letter-spacing: 1.2px;
+  }
+
+  /* Botão voltar ao topo */
+  #backToTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(145deg, #b7986d, #ffd670);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px #ffd670aa;
+    color: #1e1e1e;
+    font-size: 24px;
+    z-index: 999;
+    transition: transform 0.3s ease;
+  }
+  #backToTopBtn:hover {
+    transform: scale(1.2);
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(18,18,18,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal {
+    background: #292929;
+    border-radius: 18px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    color: #dddcdc;
+    position: relative;
+    box-shadow:
+      0 0 30px #b7986dcc;
+  }
+  .modal h3 {
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #b7986d, #ffd670);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .modal p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: #ccc;
+  }
+  .modal a {
+    color: #ffd670;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.25s ease;
+  }
+  .modal a:hover {
+    border-color: #ffd670;
+  }
+  .close-modal {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #ffd670;
+    font-size: 28px;
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .close-modal:hover {
+    color: #fff;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo" aria-label="Logo Vitor Soare Lobato">Vitor Soare Lobato</div>
+    <div class="menu-btn" id="menu-btn" aria-label="Abrir menu" role="button" tabindex="0" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul id="nav-links" aria-label="Menu de navegação">
+      <li><a href="#sobre" class="active">Sobre</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#cursos">Cursos</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section id="sobre">
+    <h2>Sobre mim</h2>
+    <p>Meu nome é Vitor, tenho 17 anos e sou desenvolvedor de sistemas desde 2024. Concluirei minha formação em 2025. Durante esse período, desenvolvi habilidades tanto no front-end quanto no back-end, além de muita paixão por criar soluções eficientes com tecnologia.</p>
+  </section>
+
+  <section id="habilidades">
+    <h2>Habilidades Técnicas</h2>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>Git & GitHub</li>
+      <li>Banco de Dados (SQL)</li>
+      <li>Lógica de Programação</li>
+      <li>Front-end e Back-end</li>
+    </ul>
+  </section>
+
+  <section id="cursos">
+    <h2>Formação & Cursos</h2>
+    <ul>
+      <li>Curso Técnico em Desenvolvimento de Sistemas (2024 - 2025)</li>
+      <li>Curso de Informática Básica</li>
+    </ul>
+  </section>
+
+  <section id="projetos">
+    <h2>Projetos</h2>
+    <div class="projects-grid">
+      <div class="project-card" tabindex="0" aria-label="Projeto Sistema de Tarefas" data-title="Sistema de Tarefas" data-description="App para organizar tarefas diárias com interface simples e intuitiva." data-link="#" data-img="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Projeto Sistema de Tarefas" />
+        <div class="project-info">
+          <h3>Sistema de Tarefas</h3>
+          <p>App para organizar tarefas diárias com interface simples e intuitiva.</p>
+          <a href="#" class="btn-project" aria-label="Ver projeto Sistema de Tarefas">Ver projeto</a>
+        </div>
+      </div>
+      <div class="project-card" tabindex="0" aria-label="Projeto Loja Virtual" data-title="Loja Virtual" data-description="Plataforma e-commerce responsiva para venda de produtos online." data-link="#" data-img="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="Projeto Loja Virtual" />
+        <div class="project-info">
+          <h3>Loja Virtual</h3>
+          <p>Plataforma e-commerce responsiva para venda de produtos online.</p>
+          <a href="#" class="btn-project" aria-label="Ver projeto Loja Virtual">Ver projeto</a>
+        </div>
+      </div>
+      <div class="project-card" tabindex="0" aria-label="Projeto Blog Pessoal" data-title="Blog Pessoal" data-description="Blog para compartilhar artigos e experiências pessoais." data-link="#" data-img="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Projeto Blog Pessoal" />
+        <div class="project-info">
+          <h3>Blog Pessoal</h3>
+          <p>Blog para compartilhar artigos e experiências pessoais.</p>
+          <a href="#" class="btn-project" aria-label="Ver projeto Blog Pessoal">Ver projeto</a>
+        </div>
+      </div>
+      <div class="project-card" tabindex="0" aria-label="Projeto Dashboard Financeiro" data-title="Dashboard Financeiro" data-description="Dashboard interativo para controle financeiro pessoal e empresarial." data-link="#" data-img="https://images.unsplash.com/photo-1517148815978-75f6acaaf32c?auto=format&fit=crop&w=400&q=80">
+        <img src="https://images.unsplash.com/photo-1517148815978-75f6acaaf32c?auto=format&fit=crop&w=400&q=80" alt="Projeto Dashboard Financeiro" />
+        <div class="project-info">
+          <h3>Dashboard Financeiro</h3>
+          <p>Dashboard interativo para controle financeiro pessoal e empresarial.</p>
+          <a href="#" class="btn-project" aria-label="Ver projeto Dashboard Financeiro">Ver projeto</a>
+        </div>
+      </div>
+      <div class="project-card" tabindex="0" aria-label="Projeto Aplicativo Mobile" data-title="Aplicativo Mobile" data-description="Aplicativo móvel para gerenciamento de eventos com notificações em tempo real." data-link="#" data-img="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Projeto Aplicativo Mobile" />
+        <div class="project-info">
+          <h3>Aplicativo Mobile</h3>
+          <p>Aplicativo móvel para gerenciamento de eventos com notificações em tempo real.</p>
+          <a href="#" class="btn-project" aria-label="Ver projeto Aplicativo Mobile">Ver projeto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <h2>Contato</h2>
+    <p>Vamos conversar? Me chame no WhatsApp ou confira minhas redes sociais abaixo:</p>
+    <div class="social-buttons" role="list">
+  <a href="https://wa.me/5516981815115" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp" style="background-color: #25D366; border-radius: 50%; padding: 0.7rem;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" viewBox="0 0 24 24">
+      <path d="M20.52 3.48A11.78 11.78 0 0 0 2.05 17.45L0 24l6.72-1.97a11.8 11.8 0 0 0 5.61 1.42h.01a11.76 11.76 0 0 0 8.17-20.02zm-8.17 17.9a9.48 9.48 0 0 1-4.85-1.33l-.35-.2-3.99 1.17 1.14-3.89-.22-.4a9.49 9.49 0 1 1 8.27 4.65zm5.22-7.14c-.29-.15-1.71-.84-1.97-.94s-.46-.15-.65.14-.75.94-.92 1.13-.34.22-.63.07a7.73 7.73 0 0 1-2.27-1.4 8.56 8.56 0 0 1-1.6-2.01c-.17-.29 0-.45.13-.6.13-.14.29-.34.43-.51.15-.17.2-.29.3-.48.1-.2.05-.36-.02-.51-.07-.15-.65-1.55-.89-2.12-.23-.56-.47-.49-.64-.5l-.55-.01c-.2 0-.51.07-.78.36s-1.02 1-1.02 2.43 1.04 2.82 1.18 3.02 2.06 3.15 4.99 4.42a17.06 17.06 0 0 0 1.65.61c.69.22 1.32.19 1.82.12.56-.08 1.71-.7 1.95-1.39.24-.7.24-1.3.17-1.39-.08-.1-.26-.15-.55-.3z"/>
+    </svg>
+  </a>
+
+  <a href="https://github.com/vitorsoareslobato00" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub" style="background-color: #171515; border-radius: 50%; padding: 0.7rem;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" viewBox="0 0 24 24">
+      <path d="M12 0C5.37 0 0 5.38 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.725-4.033-1.416-4.033-1.416-.546-1.385-1.333-1.753-1.333-1.753-1.09-.745.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.807 1.304 3.495.997.108-.775.418-1.304.76-1.603-2.665-.3-5.466-1.334-5.466-5.933 0-1.31.47-2.382 1.235-3.222-.124-.303-.535-1.522.117-3.176 0 0 1.008-.322 3.3 1.23a11.51 11.51 0 0 1 6 0c2.29-1.552 3.297-1.23 3.297-1.23.653 1.654.243 2.873.12 3.176.77.84 1.233 1.912 1.233 3.222 0 4.61-2.804 5.63-5.475 5.922.43.37.823 1.1.823 2.217v3.293c0 .32.218.694.825.576C20.565 21.796 24 17.297 24 12c0-6.62-5.373-12-12-12z"/>
+    </svg>
+  </a>
+
+  <a href="https://instagram.com/lobatzx" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram" style="background-color: #E1306C; border-radius: 50%; padding: 0.7rem;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" viewBox="0 0 24 24">
+      <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm8.37 3.5a1.12 1.12 0 1 1 0 2.25 1.12 1.12 0 0 1 0-2.25zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+    </svg>
+  </a>
+
+  <a href="https://www.facebook.com/vitor.soares" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook" style="background-color: #1877F2; border-radius: 50%; padding: 0.7rem;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" viewBox="0 0 24 24">
+      <path d="M22.675 0H1.325C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.464.1 2.795.144v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.726 0 1.326-.593 1.326-1.326V1.326C24 .593 23.407 0 22.675 0z"/>
+    </svg>
+  </a>
+</div>
+
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Vitor Soare Lobato. Todos os direitos reservados.
+</footer>
+
+<button id="backToTopBtn" aria-label="Voltar ao topo">↑</button>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+  <div class="modal" role="document">
+    <button class="close-modal" id="closeModal" aria-label="Fechar modal">&times;</button>
+    <h3 id="modalTitle">Título do Projeto</h3>
+    <p id="modalDesc">Descrição do projeto.</p>
+    <a href="#" target="_blank" id="modalLink" rel="noopener" aria-label="Abrir projeto">Abrir projeto</a>
+  </div>
+</div>
+
+<script>
+  // Menu hamburguer
+  const menuBtn = document.getElementById('menu-btn');
+  const navLinks = document.getElementById('nav-links');
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    menuBtn.classList.toggle('open');
+    const expanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
+    menuBtn.setAttribute('aria-expanded', !expanded);
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        menuBtn.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', false);
+      }
+    });
+  });
+
+  // Scroll suave para seções e active link
+  const sections = document.querySelectorAll('section');
+  const navItems = document.querySelectorAll('nav ul li a');
+  window.addEventListener('scroll', () => {
+    let scrollPos = window.scrollY || document.documentElement.scrollTop;
+    sections.forEach(section => {
+      if(scrollPos >= section.offsetTop - 80 && scrollPos < section.offsetTop + section.offsetHeight) {
+        navItems.forEach(a => a.classList.remove('active'));
+        const activeLink = document.querySelector(`nav ul li a[href="#${section.id}"]`);
+        if(activeLink) activeLink.classList.add('active');
+      }
+    });
+    // Mostrar botão voltar ao topo
+    const backBtn = document.getElementById('backToTopBtn');
+    if(scrollPos > 250) {
+      backBtn.style.display = 'flex';
+    } else {
+      backBtn.style.display = 'none';
+    }
+  });
+
+  // Botão voltar ao topo
+  document.getElementById('backToTopBtn').addEventListener('click', () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+
+  // Modal de projetos
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalLink = document.getElementById('modalLink');
+  const closeModalBtn = document.getElementById('closeModal');
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const title = card.getAttribute('data-title');
+      const desc = card.getAttribute('data-description');
+      const link = card.getAttribute('data-link');
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc;
+      if(link && link !== "#") {
+        modalLink.href = link;
+        modalLink.style.display = 'inline-block';
+      } else {
+        modalLink.style.display = 'none';
+      }
+      modalOverlay.classList.add('active');
+      modalOverlay.focus();
+    });
+    card.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+  closeModalBtn.addEventListener('click', () => {
+    modalOverlay.classList.remove('active');
+  });
+  modalOverlay.addEventListener('click', e => {
+    if(e.target === modalOverlay) {
+      modalOverlay.classList.remove('active');
+    }
+  });
+  // Fechar modal com ESC
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      modalOverlay.classList.remove('active');
+    }
+  });
+
+</script>
+</body>
+</html>
